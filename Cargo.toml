@@ -4,4 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+clap = { version = "4", features = ["derive"] }
 serialport="4.7.2"
+
+[profile.release]
+opt-level = 3            # Optimize for size, use "3" for speed
+lto = "fat"              # thin for still optimise but slower compile time
+codegen-units = 1         # Better optimization at the cost of compile time
+panic = "abort"           # Smaller binaries if unwinding is not needed
+strip = true              # Strip symbols from the final binary
+
